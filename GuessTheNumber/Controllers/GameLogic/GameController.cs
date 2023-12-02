@@ -1,6 +1,4 @@
 ﻿using GuessTheNumber.Interfaces;
-using System;
-
 namespace GuessTheNumber
 {
     internal class GameController : IGameController
@@ -15,19 +13,19 @@ namespace GuessTheNumber
         }
         public bool CheckGuess(int guess)
         {
-            if (_remainingAttempts <= 0)
+            if (_remainingAttempts <= 0 && _targetNumber != guess)
             {
-                throw new InvalidOperationException("No remaining attempts, Game Over");
+                throw new Exception("No remaining attempts, Game Over");
             }
 
             _remainingAttempts--;
 
             return guess == _targetNumber;
         }
-        public void InitalizeGame(int rangeFrom, int rangeTo, int attempts)
+        public void InitializeGame(int rangeFrom, int rangeTo, int attempts)
         {
             _targetNumber = _randomizer.GenerateRandomNumber(rangeFrom, rangeTo);
-            _remainingAttempts = attempts;
+            _remainingAttempts = attempts - 1;
         }
     }
 }

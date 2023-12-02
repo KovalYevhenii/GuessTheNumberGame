@@ -2,4 +2,5 @@
 public interface IGameMenu
 {
     public void Greeting();
+    public void StartMenu();
 }
