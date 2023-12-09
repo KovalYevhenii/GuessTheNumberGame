@@ -10,6 +10,7 @@ internal class GameStarter : IGameStarter
     }
     public void StartGame(int rangeFrom, int rangeTo, int attempts)
     {
+        Console.WriteLine("=Game Started, Good Luck=");
         while (!_isGameWon)
         {  
             _gameController.InitializeGame(rangeFrom, rangeTo, attempts);
