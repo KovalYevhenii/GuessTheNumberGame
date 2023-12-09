@@ -11,6 +11,7 @@ internal class Program
         serviceConfig.ConfigureServices(services);
         var serviceProvider = services.BuildServiceProvider();
         var game = serviceProvider.GetRequiredService<IGameStarter>();
-        game.StartGame();
+        game.GetUserInput(out int rangeFrom, out int rangeTo, out int attempts);
+        game.StartGame(rangeFrom, rangeTo, attempts);
     }
 }

@@ -3,9 +3,7 @@ using GuessTheNumber.Controllers;
 using GuessTheNumber.Interfaces;
 using GuessTheNumber.View;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace GuessTheNumber.Services;
-
 internal class ServicesConfiguration : IServicesConfiguration
 {
     public void ConfigureServices(IServiceCollection services)
