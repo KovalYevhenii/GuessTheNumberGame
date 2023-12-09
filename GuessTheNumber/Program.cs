@@ -1,23 +1,16 @@
-﻿using GuessTheNumber.Controllers;
-using GuessTheNumber.Controllers.GameLogic;
-using GuessTheNumber.Interfaces;
+﻿using GuessTheNumber.Interfaces;
 using GuessTheNumber.Services;
-using GuessTheNumber.View;
 using Microsoft.Extensions.DependencyInjection;
-
-namespace GuessTheNumber
+namespace GuessTheNumber;
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            var services = new ServiceCollection();
-            var serviceConfig = new ServicesConfiguration();
-            serviceConfig.ConfigureServices(services);
-            var serviceProvider = services.BuildServiceProvider();
-            var startGame = serviceProvider.GetRequiredService<IGameStarter>();
-            startGame.StartGame();
-         
-        }
+        var services = new ServiceCollection();
+        var serviceConfig = new ServicesConfiguration();
+        serviceConfig.ConfigureServices(services);
+        var serviceProvider = services.BuildServiceProvider();
+        var game = serviceProvider.GetRequiredService<IGameStarter>();
+        game.StartGame();
     }
 }
