@@ -46,7 +46,6 @@ internal class GameStarter : IGameStarter
             }
         }
     }
-
     private int GetIntInput(string prompt)
     {
         while (true)

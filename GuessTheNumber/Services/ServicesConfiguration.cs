@@ -1,5 +1,6 @@
 ﻿using GuessTheNumber.Controllers.GameLogic;
 using GuessTheNumber.Interfaces;
+using GuessTheNumber.Services.ConsoleService;
 using Microsoft.Extensions.DependencyInjection;
 namespace GuessTheNumber.Services;
 internal class ServicesConfiguration

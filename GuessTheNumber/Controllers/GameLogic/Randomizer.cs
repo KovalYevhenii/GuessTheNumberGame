@@ -3,9 +3,9 @@ namespace GuessTheNumber.Controllers.GameLogic;
 internal class Randomizer : IRandomizer
 {
     private readonly Random _random;
-    public Randomizer(Random random)
+    public Randomizer()
     {
-        _random = random ?? throw new ArgumentNullException(nameof(random));
+        _random = new Random();
     }
     public int GenerateRandomNumber(int rangeFrom, int rangeTo)
     {

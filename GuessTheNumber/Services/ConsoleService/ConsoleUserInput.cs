@@ -1,7 +1,5 @@
 ﻿using GuessTheNumber.Interfaces;
-
-namespace GuessTheNumber;
-
+namespace GuessTheNumber.Services.ConsoleService;
 internal class ConsoleUserInput : IUserInput
 {
     public string GetInput()

@@ -28,7 +28,7 @@ internal class GameController : IGameController
             return GuessResult.Less;
         }
 
-        else if (guess > _remainingAttempts)
+        else if (guess > _targetNumber)
         {
             return GuessResult.Greater;
         }
