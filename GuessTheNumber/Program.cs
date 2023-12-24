@@ -11,8 +11,8 @@ internal class Program
         serviceConfig.ConfigureServices(services);
         var serviceProvider = services.BuildServiceProvider();
         var game = serviceProvider.GetRequiredService<IGameStarter>();
+
         Console.WriteLine("====Guess The Number Game====");
-        game.GetUserInput(out int rangeFrom, out int rangeTo, out int attempts);
-        game.StartGame(rangeFrom, rangeTo, attempts);
+        game.StartGame();
     }
 }

@@ -1,9 +1,8 @@
 ﻿using GuessTheNumber.Controllers.GameLogic;
-using GuessTheNumber.Controllers;
 using GuessTheNumber.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 namespace GuessTheNumber.Services;
-internal class ServicesConfiguration : IServicesConfiguration
+internal class ServicesConfiguration
 {
     public void ConfigureServices(IServiceCollection services)
     {
@@ -11,5 +10,7 @@ internal class ServicesConfiguration : IServicesConfiguration
         services.AddSingleton<IRandomizer, Randomizer>();
         services.AddSingleton<IGameController, GameController>();
         services.AddSingleton<IGameStarter, GameStarter>();
+        services.AddSingleton<IUserInput, ConsoleUserInput>();
+        services.AddSingleton<IUserOutput, ConsoleUserOutput>();
     }
 }

@@ -1,62 +1,65 @@
 ﻿using GuessTheNumber.Interfaces;
-namespace GuessTheNumber.Controllers;
+using GuessTheNumber;
 internal class GameStarter : IGameStarter
 {
     private readonly IGameController _gameController;
-    private bool _isGameWon = false;
-    public GameStarter(IGameController gameController)
+    private readonly IUserOutput _userOutput;
+    private readonly IUserInput _userInput;
+
+    public GameStarter(IGameController gameController, IUserOutput userOutput, IUserInput userInput)
     {
         _gameController = gameController;
+        _userOutput = userOutput;
+        _userInput = userInput;
     }
-    public void StartGame(int rangeFrom, int rangeTo, int attempts)
+
+    public void StartGame()
     {
-        Console.WriteLine("=Game Started, Good Luck=");
-        while (!_isGameWon)
-        {  
-            _gameController.InitializeGame(rangeFrom, rangeTo, attempts);
+        _userOutput.ShowMessage("=Game Started, Good Luck=");
 
-            while (true)
+        var rangeFrom = GetIntInput("Enter the range from: ");
+        var rangeTo = GetIntInput("Enter the range to: ");
+        var attempts = GetIntInput("Enter the number of attempts: ");
+        _gameController.InitializeGame(rangeFrom, rangeTo, attempts);
+
+        while (true)
+        {
+            var userInput = GetIntInput("Enter the number within your range");
+            if (!_gameController.CanGuess())
             {
-                var userInput = GetIntInput("Enter the number within your range");
-                var IsCorrectGuess = _gameController.CheckGuess(userInput);
-                switch(IsCorrectGuess)
-                {
-                    case null:
-                        Console.WriteLine("No more attempts, GAME OVER!");
-                        return;
+                _userOutput.ShowMessage("No more attempts, GAME OVER!");
+                break;
+            }
 
-                        case true:
-                        Console.WriteLine("Congratulations! You guessed the number.");
-                        _isGameWon = true;
-                        return;
-
-                        case false:
-                        var moreOrLess = _gameController.MoreOrLess(userInput);
-                        Console.WriteLine($"Sorry,wrong guess try again and {moreOrLess}");
-                        break;
-                }    
+            var result = _gameController.Guess(userInput);
+            switch (result)
+            {
+                case GuessResult.Less:
+                    _userOutput.ShowMessage("Number is higher");
+                    break;
+                case GuessResult.Greater:
+                    _userOutput.ShowMessage("Number is lower");
+                    break;
+                case GuessResult.Equal:
+                    _userOutput.ShowMessage("Congratulations! You guessed the number.");
+                    return; 
             }
         }
     }
+
     private int GetIntInput(string prompt)
     {
-        Console.WriteLine(prompt);
         while (true)
         {
-            if (!int.TryParse(Console.ReadLine(), out var input))
+            _userOutput.ShowMessage(prompt);
+            if (!int.TryParse(_userInput.GetInput(), out var input))
             {
-                Console.WriteLine("Wrong input");
+                _userOutput.ShowMessage("Wrong input");
             }
             else
             {
                 return input;
             }
         }
-    }
-    public void GetUserInput(out int rangeFrom, out int rangeTo, out int attempts)
-    {
-        rangeFrom = GetIntInput("Enter the range from: ");
-        rangeTo = GetIntInput("Enter the range to: ");
-        attempts = GetIntInput("Enter the number of attempts: ");
     }
 }
